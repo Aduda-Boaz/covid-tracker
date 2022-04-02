@@ -1,52 +1,46 @@
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { BsGraphUp } from 'react-icons/bs';
-import { RiArrowRightCircleLine } from 'react-icons/ri';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, NavLink } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import { fetchData } from '../redux/stock/company';
+import Nav from './Nav';
+import './styles/Companies.css';
 
-const CompanyDetails = () => {
-  const location = useLocation();
-  const [data, setData] = useState({});
-
+const Company = () => {
+  const param = useParams();
+  const company = useSelector((state) => state.companyReducer[0]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    setData(location.state);
-  }, [location]);
-
-  const selectedData = ['sector', 'industry', 'country', 'marketCap', 'volume', 'lastAnnualDividend', 'beta'];
-
-  const filteredData = selectedData.reduce((obj, key) => ({ ...obj, [key]: data[key] }), {});
+    dispatch(fetchData(param.companySymbol));
+  }, []);
 
   return (
-    <div className="home-container">
-      <div className="header-style">
-        <span>
-          <BsGraphUp color="#b13967" />
-        </span>
-        <div className="header-text-style">
-          <h2>{data.companyName}</h2>
-          <span>
-            $
-            {data.price}
-          </span>
-        </div>
-      </div>
-      <h4>COMPANY STOCK BREAKDOWN</h4>
-      <div className="detail-section">
-        { Object.keys(filteredData).map((key) => (
-          <div key={key} className="details-data">
-            <h3>
-              {key}
-              :
-              {' '}
-            </h3>
-            <div className="details-text">
-              <span>{filteredData[key]}</span>
-              <span><RiArrowRightCircleLine size="30px" /></span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <>
+      {(company)
+        ? <Nav title={company.companyName} /> : <Nav title="Stock Company" />}
+      {(company)
+        ? (
+          <NavLink key={uuidv4()} to={`/${company.symbol}`}>
+            <section className="logo">
+              <img src={company.image} alt="company logo" />
+              <p>{company.companyName}</p>
+            </section>
+            <section className="info">
+              {Object.entries(company).filter(([key]) => (key !== 'companyName' && key !== 'image')).map(([key, value]) => (
+                <div className="item" key={uuidv4()}>
+                  <div className="key">
+                    { key }
+                  </div>
+                  <div>
+                    {value}
+                  </div>
+                </div>
+              ))}
+            </section>
+          </NavLink>
+        ) : <h1>Loading ...</h1>}
+    </>
   );
 };
 
-export default CompanyDetails;
+export default Company;

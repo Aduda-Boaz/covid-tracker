@@ -1,78 +1,79 @@
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { FaMoneyBillWave } from 'react-icons/fa';
-import { RiArrowRightCircleLine } from 'react-icons/ri';
-import { BsGraphUp } from 'react-icons/bs';
-import { BiSearchAlt } from 'react-icons/bi';
-import { getFinancialData } from '../redux/stock/stocks';
+import djones from '../assets/djones.jpeg';
+import Nav from './Nav';
+import './styles/Home.css';
 
 const Home = () => {
-  const financialData = useSelector((store) => store.financialReducer);
-  const [state, setState] = useState([]);
-  const dispatch = useDispatch();
+  const home = useSelector((state) => state.homeReducer);
+  const [companyInfo, setCompanyInfo] = useState('');
+  const [selected, setSelected] = useState('');
+  const [search, setSearch] = useState('');
 
-  const filterDataToSearch = (str) => {
-    const filteredData = financialData.filter((fin) => fin.companyName
-      .toLowerCase().startsWith(str.toLowerCase()));
-    setState(filteredData);
+  const select = (e) => {
+    setCompanyInfo(e.target.value);
+    const symbol = e.target.value.slice(0, 8);
+    setSelected(symbol);
   };
 
-  useEffect(() => {
-    dispatch(getFinancialData());
-  }, []);
-
-  useEffect(() => {
-    setState(financialData);
-  }, [financialData]);
-
-  const cotainerStyle = {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-  };
-
-  let change = false;
-  let background = '#dc4681';
+  const filteredData = home.filter((company) => {
+    const data = Object.keys(company).some((key) => {
+      const res = company[key].toLowerCase().includes(selected.toLowerCase())
+      && company[key].toLowerCase().includes(search.toLowerCase());
+      return res;
+    });
+    return data;
+  });
   return (
-    <div className="home-container">
-      <div className="header-style">
-        <span><FaMoneyBillWave color="#b13967" /></span>
-        <h2>NASDAQ</h2>
-      </div>
-      <div className="search-bar">
-        <BiSearchAlt />
-        <input type="text" placeholder="Search a company in NASDAQ" onChange={(e) => filterDataToSearch(e.target.value)} />
-      </div>
-      <h4>STOCK MARKET</h4>
-      <div style={cotainerStyle}>
-        {state.map((com, i) => {
-          const index = `kei${i}`;
-          change = i % 2 === 0 || i === 0;
-          if (!change) {
-            if (background === '#dc4681') {
-              background = '#d04278';
-            } else {
-              background = '#dc4681';
-            }
-          }
-          return (
-            <div key={index} className="element-style" style={{ backgroundColor: background }}>
-              <div className="element-header-style">
-                <span><BsGraphUp size="100px" /></span>
-                <Link to="/details" state={{ ...com }}><RiArrowRightCircleLine size="30px" color="white" /></Link>
-              </div>
-              <div className="element-text-style">
-                <h3>{com.companyName}</h3>
-                <span>
-                  $
-                  {com.price}
-                </span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <>
+      <Nav />
+      <section className="homeSection1">
+        <ul className="dowjones">
+          <li>Dow Jones Industrial Average</li>
+          <li><img src={djones} alt="Dow Jones Industrial Average (DJIA)" /></li>
+        </ul>
+      </section>
+      <section className="search-bar">
+        <input type="search" placeholder="Search Company Name or Symbol" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <select id="company" name="company" value={companyInfo} onChange={select}>
+          <option value="">Choose a company</option>
+          {Object.entries(home).map(([key, value]) => (
+            <option key={key} value={`${value.name} (${value.symbol})`}>
+              {`${value.name} (${value.symbol})`}
+            </option>
+          ))}
+        </select>
+      </section>
+
+      <section className="cards">
+        {filteredData === '' ? Object.entries(home).map(([key, value]) => (
+          <Link key={key} to={`/${value.symbol}`}>
+            <ul>
+              <li className="companyName">
+                {value.name}
+                <span style={{ fontWeight: 300 }}>{`   (${value.symbol})`}</span>
+              </li>
+              <li>
+                {value.exchange}
+              </li>
+            </ul>
+          </Link>
+        )) : Object.entries(filteredData).map(([key, value]) => (
+          <Link key={key} to={`/${value.symbol}`}>
+            <ul>
+              <li className="companyName">
+                {value.name}
+                <span style={{ fontWeight: 300 }}>{`   (${value.symbol})`}</span>
+              </li>
+              <li>
+                {value.exchange}
+              </li>
+            </ul>
+          </Link>
+        ))}
+      </section>
+    </>
   );
 };
 
