@@ -9,7 +9,7 @@ import './styles/Nav.css';
 const Nav = ({ title }) => (
   <header className="header">
     {
-      (title !== 'Stock Companies') ? <NavLink to="/company-profile"><IoIosArrowBack data-testid="back" /></NavLink> : <p />
+      (title !== 'Stock Companies Information') ? <NavLink to="/company-profile"><IoIosArrowBack data-testid="back" /></NavLink> : <p />
     }
 
     {
@@ -26,6 +26,6 @@ Nav.propTypes = {
   title: PropTypes.string,
 };
 Nav.defaultProps = {
-  title: 'Stock Companies',
+  title: 'Stock Companies Information',
 };
 export default Nav;

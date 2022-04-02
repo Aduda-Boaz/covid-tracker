@@ -14,8 +14,6 @@
   font-weight: 700;
   font-size: larger;
   color: white;
-  text-decoration: underline;
-  text-decoration-color: #4369b2;
   padding-left: 10px;
 }
 
@@ -33,14 +31,7 @@
 }
 
 .item:nth-child(odd) {
-  background-color: #1f4180;
-  text-decoration: underline;
-  text-decoration-color: #1f4180;
-}
-
-.item:nth-child(even) {
-  text-decoration: underline;
-  text-decoration-color: #4369b2;
+  background-color: #740753;
 }
 
 .key {

@@ -28,16 +28,16 @@ const Home = () => {
   return (
     <>
       <Nav />
-      <section className="homeSection1">
+      <section className="homeTopSection">
         <ul className="dowjones">
           <li>Dow Jones Industrial Average</li>
-          <li><img src={djones} alt="Dow Jones Industrial Average (DJIA)" /></li>
+          <li><img src={djones} alt="Dow Jones" /></li>
         </ul>
       </section>
       <section className="search-bar">
-        <input type="search" placeholder="Search Company Name or Symbol" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <input type="search" placeholder="Search By Name or Symbol" value={search} onChange={(e) => setSearch(e.target.value)} />
         <select id="company" name="company" value={companyInfo} onChange={select}>
-          <option value="">Choose a company</option>
+          <option value="">Select Company</option>
           {Object.entries(home).map(([key, value]) => (
             <option key={key} value={`${value.name} (${value.symbol})`}>
               {`${value.name} (${value.symbol})`}

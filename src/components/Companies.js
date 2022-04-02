@@ -17,7 +17,7 @@ const Company = () => {
   return (
     <>
       {(company)
-        ? <Nav title={company.companyName} /> : <Nav title="Stock Company" />}
+        ? <Nav title={company.companyName} /> : <Nav title="Stock Company Information" />}
       {(company)
         ? (
           <NavLink key={uuidv4()} to={`/${company.symbol}`}>
@@ -38,7 +38,7 @@ const Company = () => {
               ))}
             </section>
           </NavLink>
-        ) : <h1>Loading ...</h1>}
+        ) : <h1>Please wait while loading ...</h1>}
     </>
   );
 };

@@ -1,11 +1,11 @@
-.homeSection1 {
+.homeTopSection {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   height: 100px;
 }
 
-.homeSection1 ul {
+.homeTopSection ul {
   width: 50%;
   display: flex;
   justify-content: center;
@@ -13,12 +13,12 @@
   align-items: center;
 }
 
-.homeSection1 ul img {
+.homeTopSection ul img {
   height: 50px;
   width: 50px;
 }
 
-.homeSection1 li {
+.homeTopSection li {
   font-weight: 700;
   font-size: larger;
   list-style-type: none;
@@ -33,7 +33,6 @@
 
 .search-bar input {
   width: 50%;
-  color: #1f4180;
 }
 
 .search-bar select {
