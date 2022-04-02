@@ -5,8 +5,8 @@
 > This is a single page web application that retrieves real live data from the Financial Modeling Prep API. Users can get information on their favourite company at NYSE.
 > Companies are displayed in the Home Page. Information which inclujde the stock index is displayed at the company information section.
 
-![screenshot](./src/home.png)
-![screenshot](./src/company.png)
+![screenshot](./home.png)
+![screenshot](./company.png)
 
 ## Live Demo
 
