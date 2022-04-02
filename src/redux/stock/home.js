@@ -25,7 +25,7 @@ export const fetchComp = () => async (dispatch) => {
     symbol: item.symbol,
     name: item.name,
     sectore: item.sector,
-    exchange: 'New York Stock Exchange NYSE',
+    exchange: 'Dow Jones Market Index',
   }));
   const info = [...infoDowjones];
   dispatch(fetchCompaniesSuccess(info));
