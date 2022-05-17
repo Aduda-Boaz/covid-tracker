@@ -8,7 +8,7 @@
 
 ## Live Demo
 
-You can see [the app live here](https://stock-metrics-app.netlify.app/)
+You can see [the app live here]( https://aduda-boaz.github.io/stock-tracker/)
 
 ## Setup
 
