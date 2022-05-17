@@ -1,6 +1,7 @@
 {
   "name": "stock-tracker",
   "version": "0.1.0",
+  "homepage": "https://aduda-boaz.github.io/stock-tracker/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
@@ -12,8 +13,8 @@
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-redux": "^8.0.1",
     "react-icons": "^4.3.1",
+    "react-redux": "^8.0.1",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "react-select": "^5.2.2",
@@ -27,6 +28,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -62,6 +65,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
+    "gh-pages": "^4.0.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^21.0.0",
     "stylelint-csstree-validator": "^1.9.0",
